@@ -1,5 +1,5 @@
-const obterMensagensCarrinho = require("../components/objetoCarrinho");
-const msgStrings = {
+const getCartMessagesAndTotalPrice = require("../src/components/getCartMessagesAndTotalPrice.js");
+const getMessageStrings = {
     pedidoCancelado: `Pedido cancelado com sucesso!`,
     erro: `❌ Digite uma opção válida, por favor. 
     ⚠ APENAS UMA OPÇÃO POR VEZ ⚠.`,
@@ -16,7 +16,16 @@ const msgStrings = {
     -----------------------------------
     1 - FAZER PEDIDO
     2 - NOSSA LOCALIZAÇÃO`,
-    location: "Mandar uma localizxação typeLocations",
+    location: `📍 *LOCALIZAÇÃO* 📍
+    Rua Daniel, nº 000
+    Bairro: galeão 
+    Cidade: Rio de Janeiro
+    Estado: Rio de Janeiro
+    CEP: 00000-000
+    -----------------------------------
+    1 - pedir
+    2 - LOCALIZAÇÃO
+    3 - SOBRE O ESTABELECIMENTO`,
     menu: {
         categorias: `*Digite* o numero correspondete a opcão!
         🚨  CARDÁPIO  🚨
@@ -134,7 +143,7 @@ const msgStrings = {
         1 - Sim
         2 - Não`,
         resumo: (data, endereco, nome) => {
-            let pedidos = obterMensagensCarrinho(data)
+            let pedidos = getCartMessagesAndTotalPrice(data)
             return `🗒 RESUMO DO PEDIDO:
     🪪 nome : ${nome}.
     🛒 carrinho: ${pedidos[1]}.
@@ -145,7 +154,7 @@ const msgStrings = {
     
     🔊 O pagamento sera realizado em cartão ou dinheiro?`},// Button de whatsapp
         newPedido: (carrinho, endereco, tipoDePagamanento, numero, nome) => {
-            let pedidos = obterMensagensCarrinho(carrinho)
+            let pedidos = getCartMessagesAndTotalPrice(carrinho)
             return `🔔 NOVO PEDIDO 🔔:
 
     📞 Cliente: ${numero}
@@ -160,4 +169,4 @@ const msgStrings = {
     }
 }
 
-module.exports = msgStrings;
+module.exports = getMessageStrings;

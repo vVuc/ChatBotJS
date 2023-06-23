@@ -6,7 +6,7 @@ const fs = require('fs');
  * @param {string} fileName - Nome do arquivo.
  * @param {object} data - Dados a serem manipulados.
  */
-const manipulaData = (action, fileName, data) => {
+const handleFile  = (action, fileName, data) => {
     switch (action) {
         case "PegarData":
             try {
@@ -38,4 +38,4 @@ const manipulaData = (action, fileName, data) => {
     }
 };
 
-module.exports = manipulaData;
+module.exports = handleFile ;

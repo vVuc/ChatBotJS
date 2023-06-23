@@ -25,7 +25,7 @@ Antes de executar o bot, é necessário realizar algumas configurações:
 4. Abra o arquivo `config.js` e configure as seguintes informações:
    - `sessionPath`: caminho para o arquivo de sessão do WhatsApp. Este arquivo será gerado automaticamente.
    - `menuOptions`: definição das opções do menu. Adicione ou remova itens conforme necessário.
-   - `msgStrings`: definição das mensagens utilizadas pelo bot. Personalize as mensagens de acordo com suas necessidades.
+   - `getMessageStrings`: definição das mensagens utilizadas pelo bot. Personalize as mensagens de acordo com suas necessidades.
 5. Após realizar as configurações, execute o bot com o seguinte comando:
    ```
    npm start
@@ -36,10 +36,10 @@ Antes de executar o bot, é necessário realizar algumas configurações:
 - `index.js`: ponto de entrada do aplicativo. Configura o cliente WhatsApp e define os eventos de mensagem.
 - `stepByStep.js`: contém a lógica principal do bot. Controla o fluxo da conversa e realiza as ações de acordo com as interações do cliente.
 - `sendMsg.js`: contém a função de envio de mensagens para números de telefone.
-- `registraNumero.js`: responsável por registrar um novo número de telefone e enviar a apresentação inicial.
-- `obterMensagensCarrinho.js`: função auxiliar para obter as mensagens dos itens adicionados ao carrinho.
-- `manipulaDados.js`: contém as funções para manipulação dos dados do cliente, como leitura, atualização e registro.
-- `configuraData.js`: define as ações para configurar os dados do cliente, como alteração de estágio da conversa, adição de observações, endereço e produtos ao carrinho.
+- `registerNumber.js`: responsável por registrar um novo número de telefone e enviar a apresentação inicial.
+- `getCartMessagesAndTotalPrice.js`: função auxiliar para obter as mensagens dos itens adicionados ao carrinho.
+- `handleFile.js`: contém as funções para manipulação dos dados do cliente, como leitura, atualização e registro.
+- `configureData.js`: define as ações para configurar os dados do cliente, como alteração de estágio da conversa, adição de observações, endereço e produtos ao carrinho.
 - `addPedidoReplyMsg.js`: função para adicionar um pedido ao carrinho e enviar uma mensagem de confirmação.
 - `mocks/Strings.js`: arquivo de exemplo contendo as mensagens utilizadas pelo bot. Personalize de acordo com suas necessidades.
 - `data/`: diretório para armazenar os arquivos JSON com os dados dos clientes registrados.

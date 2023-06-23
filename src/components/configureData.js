@@ -1,4 +1,4 @@
-const manipulaData = require("./manipulaDados");
+const handleFile = require("./handleFile");
 
 /**
  * Configura os dados do usuário e realiza ações de atualização no arquivo.
@@ -7,8 +7,8 @@ const manipulaData = require("./manipulaDados");
  * @param {*} newValue - Novo valor a ser configurado.
  * @returns {object} - Dados atualizados do usuário.
  */
-const configuraData = (action, Data, newValue) => {
-    const fileName = `./data/cliente_${Data.numero}.json`;
+const configureData = (action, Data, newValue) => {
+    const fileName = `./src/bot/data/cliente_${Data.numero}.json`;
 
     switch (action) {
         case "estagio":
@@ -45,8 +45,8 @@ const configuraData = (action, Data, newValue) => {
             break;
     }
 
-    manipulaData("atualizarData", fileName, Data);
+    handleFile ("atualizarData", fileName, Data);
     return Data;
 };
 
-module.exports = configuraData;
+module.exports = configureData ;
