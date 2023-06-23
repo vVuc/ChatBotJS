@@ -1,47 +1,55 @@
+// Importar as dependências necessárias
 const qrcode = require('qrcode-terminal');
 const stepByStep = require('./stages/StepByStep.js');
 const { Client, LocalAuth, MessageMedia, Location } = require('whatsapp-web.js');
-const client = new Client({ authStrategy: new LocalAuth({ clientId: "Duck", dataPath: "duckccession" }) });
+
+// Criar uma instância do cliente do WhatsApp
+const client = new Client({
+    authStrategy: new LocalAuth({ clientId: "Duck", dataPath: "duckccession" })
+});
+
+// Inicializar o cliente do WhatsApp
 client.initialize();
 
+// Exibir o QR Code de autenticação
 client.on('qr', qr => qrcode.generate(qr, { small: true }));
 
-client.on('ready', () => console.log('🦆 O Duck acordou! 🦆\npois nao?🍷🗿'));
+// Evento disparado quando o cliente está pronto para uso
+client.on('ready', () => {
+    console.log('🦆 O Duck acordou! 🦆\npois nao?🍷🗿');
+});
 
+// Evento disparado ao receber uma nova mensagem
+client.on('message', async (msg) => {
+    // Verificar se a mensagem é um broadcast ou de um contato específico
+    if (msg.broadcast || msg.from === "status@broadcast") {
+        return; // Ignorar mensagens de broadcast
+    }
 
-client.on('message_create', async (msg) => {
-    if (msg?.broadcast || msg?.from == "status@broadcast") return;
-
+    // Obter informações do contato
     const contact = await msg.getContact();
 
     try {
-        const { pushname, number, name } = contact
+        // Extrair informações relevantes da mensagem e do contato
+        const { pushname, number, name } = contact;
         const { from, type, hasMedia, body, hasQuotedMsg } = msg; // destructuring
+        const chat = await msg.getChat();
 
+        // Exibir informações da mensagem recebida no console
         console.log(`😜 ${name} 😜: | ${body} | Mensagem recebida de: 👉 ${pushname} 👈 | 📱 ${number} 📱 | ⬆ para: ${msg.to} ⬆ | ${msg.deviceType}`);
-        // const number_details = await client.getNumberId(number); // Obtém detalhes do número de telefone
+        // const number_details = await client.getNumberId(number); // Obter detalhes do número de telefone
 
-        if (body) {
+        if (!chat.isGroup) {
+            // Processar a mensagem usando a função stepByStep
             stepByStep(contact, msg, client);
         }
-        // if (body.match(/^location/)) {
-        //     console.log("location");
-        //     const location = new Location(37.7749, -122.4194, null);
-        //     console.log(location);
-        //     await client.sendMessage(number_details._serialized, location);
-        // }
-
-        // Carregar a imagem em uma instância de MessageMedia
-        // const imageMedia = MessageMedia.fromFilePath('assets/1.png');
-        // pções de envio da mensagem
-        // const sendOptions = {
-        //     caption: 'Descrição da imagem'
-        // };
-
-
     } catch (error) {
+        // Tratamento de erro personalizado
+        // Aqui você pode adicionar lógica para lidar com erros específicos ou registrar os erros
     }
 });
+
+// Evento disparado quando ocorre uma rejeição de promessa não tratada
 process.on("unhandledRejection", (reason) => {
-    console.log(reason)
+    console.log(reason);
 });

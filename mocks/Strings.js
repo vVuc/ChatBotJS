@@ -141,7 +141,7 @@ const msgStrings = {
     🚚 Taxa de entrega: R$5. 
     🗺 Endereço: ${endereco}.
     💰 Valor : R$${pedidos[0]}. 
-    ⏳ Tempo de entrega: 30 minutos. 
+    ⏳ Tempo de entrega: 50 minutos. 
     
     🔊 O pagamento sera realizado em cartão ou dinheiro?`},// Button de whatsapp
         newPedido: (carrinho, endereco, tipoDePagamanento, numero, nome) => {
