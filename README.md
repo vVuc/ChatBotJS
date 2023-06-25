@@ -7,7 +7,7 @@ Este é um bot de pedidos via WhatsApp, desenvolvido utilizando a biblioteca `wh
 - Apresentação inicial ao cliente quando um número de telefone é registrado pela primeira vez.
 - Exibição do menu de opções.
 - Exibição dos diferentes itens disponíveis no menu, divididos por categorias.
-- Adição de itens ao carrinho de compras.
+- Adição de itens ao bought de compras.
 - Exibição do resumo do pedido antes de finalizá-lo.
 - Coleta do nome do cliente e endereço de entrega.
 - Envio de mensagem de confirmação do pedido.
@@ -37,10 +37,10 @@ Antes de executar o bot, é necessário realizar algumas configurações:
 - `stepByStep.js`: contém a lógica principal do bot. Controla o fluxo da conversa e realiza as ações de acordo com as interações do cliente.
 - `sendMsg.js`: contém a função de envio de mensagens para números de telefone.
 - `registerNumber.js`: responsável por registrar um novo número de telefone e enviar a apresentação inicial.
-- `getCartMessagesAndTotalPrice.js`: função auxiliar para obter as mensagens dos itens adicionados ao carrinho.
+- `getCartMessagesAndTotalPrice.js`: função auxiliar para obter as mensagens dos itens adicionados ao bought.
 - `handleFile.js`: contém as funções para manipulação dos dados do cliente, como leitura, atualização e registro.
-- `configureData.js`: define as ações para configurar os dados do cliente, como alteração de estágio da conversa, adição de observações, endereço e produtos ao carrinho.
-- `addPedidoReplyMsg.js`: função para adicionar um pedido ao carrinho e enviar uma mensagem de confirmação.
+- `configureData.js`: define as ações para configurar os dados do cliente, como alteração de estágio da conversa, adição de observações, endereço e produtos ao bought.
+- `addPedidoReplyMsg.js`: função para adicionar um pedido ao bought e enviar uma mensagem de confirmação.
 - `mocks/Strings.js`: arquivo de exemplo contendo as mensagens utilizadas pelo bot. Personalize de acordo com suas necessidades.
 - `data/`: diretório para armazenar os arquivos JSON com os dados dos clientes registrados.
 

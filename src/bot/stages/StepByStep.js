@@ -1,8 +1,11 @@
+require('dotenv').config();
+const grupo_Comandas = process.env.GRUPO_COMANDAS;
 const fs = require('fs');
 const registerNumber = require('../../components/registerNumber');
 const configureData = require('../../components/configureData');
 const getMessageStrings = require('../../../mocks/getMessageStrings');
 const handleFile = require('../../components/handleFile');
+const UserController = require('../../../src/controllers/user.controller');
 const { MessageMedia } = require('whatsapp-web.js');
 /**
  * Função responsável por gerenciar o fluxo de interações do chatBot.
@@ -24,9 +27,9 @@ const stepByStep = async (contact, msg, client) => {
             await client.sendMessage(number_details._serialized, getMessageStrings.apresentacao);
         } else {
             const Data = JSON.parse(handleFile("PegarData", fileName, null));
-            const { estagioConversa } = Data;
+            const { conversationStage } = Data;
 
-            switch (estagioConversa) {
+            switch (conversationStage) {
                 case 0:
                     if (body) {
                         await client.sendMessage(number_details._serialized, getMessageStrings.apresentacao);
@@ -84,7 +87,7 @@ const stepByStep = async (contact, msg, client) => {
                     } else if (body.match(/^3/)) {
                         await client.sendMessage(number_details._serialized, getMessageStrings.pedidoCancelado);
                         configureData("estagio", Data, 0);
-                        configureData("removeProdutosCarrinho", Data, null);
+                        configureData("removeProdutosbought", Data, null);
                     }
                     break;
 
@@ -102,7 +105,7 @@ const stepByStep = async (contact, msg, client) => {
                         configureData("estagio", Data, 0);
                     } else {
                         configureData("addLocal", Data, body);
-                        await client.sendMessage(number_details._serialized, getMessageStrings.finalizar.validacaoInfo(Data.usuario, Data.addres));
+                        await client.sendMessage(number_details._serialized, getMessageStrings.finalizar.validacaoInfo(Data.userName, Data.addres));
                         configureData("estagio", Data, 6);
 
                     }
@@ -112,7 +115,7 @@ const stepByStep = async (contact, msg, client) => {
                     if (body.match(/^1/)) {
                         const image = MessageMedia.fromFilePath('./src/bot/assets/2.png');
                         const sendOptions = {
-                            caption: getMessageStrings.finalizar.resumo(Data, Data.addres, Data.usuario),
+                            caption: getMessageStrings.finalizar.resumo(Data, Data.addres, Data.userName),
                         };
                         await client.sendMessage(number_details._serialized, image, sendOptions);
                         configureData("estagio", Data, 7);
@@ -124,21 +127,23 @@ const stepByStep = async (contact, msg, client) => {
 
                 case 7:
                     if (body) {
-                        configureData("addObs", Data, body);
-                        await client.sendMessage("120363160436652177@g.us", getMessageStrings.finalizar.newPedido(Data, Data.addres, Data.addObs, Data.numero, Data.usuario));
-                        await client.sendMessage(number_details._serialized, getMessageStrings.finalizar.newPedido(Data, Data.addres, Data.addObs, Data.numero, Data.usuario));
+                        configureData("paymentMethod", Data, body);
+                        await client.sendMessage(grupo_Comandas, getMessageStrings.finalizar.newPedido(Data, Data.addres, Data.paymentMethod, Data.number, Data.userName));
+                        await client.sendMessage(number_details._serialized, getMessageStrings.finalizar.newPedido(Data, Data.addres, Data.paymentMethod, Data.number, Data.userName));
                         configureData("estagio", Data, 0);
+                        await UserController.create(Data);
+                        //Função que adciona o userName ao banco de dados
+                        break;
                     }
-                    break;
 
                 default:
-                    const test = Data.estagioConversa[1];
+                    const test = Data.conversationStage[1];
                     const selectedMenuOption = eval(`getMessageStrings.menu.${test}[${body - 1}]`);
 
                     if (selectedMenuOption) {
                         await client.sendMessage(number_details._serialized, getMessageStrings.pedidoAdicionado(selectedMenuOption.Msg));
                         configureData("estagio", Data, 3);
-                        configureData("addProdutosCarrinho", Data, selectedMenuOption);
+                        configureData("addProdutosbought", Data, selectedMenuOption);
                     }
                     break;
             }

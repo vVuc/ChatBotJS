@@ -8,12 +8,12 @@ function registerNumber(number, pushname) {
     const fileName = `./src/bot/data/cliente_${number}.json`;
 
     let clientData = {
-        numero: number,
-        usuario: pushname,
-        estagioConversa: 1,
+        number: number,
+        userName: pushname,
+        conversationStage: 1,
         addres: '',
-        addObs: '',
-        carrinho: []
+        paymentMethod: '',
+        bought: []
     };
 
     handleFile("registrarData", fileName, clientData)

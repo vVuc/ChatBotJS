@@ -1,27 +1,27 @@
 /**
- * Obtém as mensagens e o preço total do carrinho de compras.
- * @param {Object} obj - Objeto contendo os dados do carrinho de compras.
- * @returns {Array} - Array contendo o preço total e as mensagens concatenadas do carrinho.
+ * Obtém as mensagens e o preço total do bought de compras.
+ * @param {Object} obj - Objeto contendo os dados do bought de compras.
+ * @returns {Array} - Array contendo o preço total e as mensagens concatenadas do bought.
  */
 function getCartMessagesAndTotalPrice(obj) {
-    let mensagens = [];
+    let message = [];
     let prices = [];
 
-    if (obj.carrinho && Array.isArray(obj.carrinho)) {
-        obj.carrinho.forEach(function (item) {
-            if (item.Msg) {
-                mensagens.push(item.Msg);
+    if (obj.bought && Array.isArray(obj.bought)) {
+        obj.bought.forEach((i) => {
+            if (i.Msg) {
+                message.push(i.Msg);
             }
 
-            if (item.Price) {
-                prices.push(item.Price);
+            if (i.Price) {
+                prices.push(i.Price);
             }
         });
 
         const totalPrice = prices.reduce((a, b) => a + b, 0);
-        const mensagensConcatenadas = mensagens.join(", ");
+        const messageConcat = message.join(", ");
 
-        return [totalPrice, mensagensConcatenadas];
+        return [totalPrice, messageConcat];
     }
 
     return [];

@@ -123,7 +123,7 @@ const getMessageStrings = {
         },
     },
     pedidoAdicionado: item => `*Digite* o numero correspondete a opcão! 
-    ✅ ${item} Pedidos no seu carrinho
+    ✅ ${item} Pedidos no seu bought
     
     
     -----------------------------------
@@ -146,20 +146,20 @@ const getMessageStrings = {
             let pedidos = getCartMessagesAndTotalPrice(data)
             return `🗒 RESUMO DO PEDIDO:
     🪪 nome : ${nome}.
-    🛒 carrinho: ${pedidos[1]}.
+    🛒 bought: ${pedidos[1]}.
     🚚 Taxa de entrega: R$5. 
     🗺 Endereço: ${endereco}.
     💰 Valor : R$${pedidos[0]}. 
     ⏳ Tempo de entrega: 50 minutos. 
     
     🔊 O pagamento sera realizado em cartão ou dinheiro?`},// Button de whatsapp
-        newPedido: (carrinho, endereco, tipoDePagamanento, numero, nome) => {
-            let pedidos = getCartMessagesAndTotalPrice(carrinho)
+        newPedido: (bought, endereco, tipoDePagamanento, numero, nome) => {
+            let pedidos = getCartMessagesAndTotalPrice(bought)
             return `🔔 NOVO PEDIDO 🔔:
 
     📞 Cliente: ${numero}
     💳 nome: ${nome}
-    🛒 carrinho: ${pedidos[1]}
+    🛒 bought: ${pedidos[1]}
     📍 Endereço: ${endereco}
     🚚 Taxa de entrega: a confirmar.
     💰 Valor dos bolos: ${pedidos[0]}.

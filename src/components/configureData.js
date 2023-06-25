@@ -8,15 +8,15 @@ const handleFile = require("./handleFile");
  * @returns {object} - Dados atualizados do usuário.
  */
 const configureData = (action, Data, newValue) => {
-    const fileName = `./src/bot/data/cliente_${Data.numero}.json`;
+    const fileName = `./src/bot/data/cliente_${Data.number}.json`;
 
     switch (action) {
         case "estagio":
-            Data.estagioConversa = newValue;
+            Data.conversationStage = newValue;
             break;
 
-        case "addObs":
-            Data.addObs = newValue;
+        case "paymentMethod":
+            Data.paymentMethod = newValue;
             console.log("Estágio alterado com sucesso");
             break;
 
@@ -26,18 +26,18 @@ const configureData = (action, Data, newValue) => {
             break;
 
         case "addNome":
-            Data.usuario = newValue;
+            Data.userName = newValue;
             console.log("Nome adicionado com sucesso");
             break;
 
-        case "addProdutosCarrinho":
-            Data.carrinho.push(newValue);
-            console.log("Produto adicionado ao carrinho com sucesso");
+        case "addProdutosbought":
+            Data.bought.push(newValue);
+            console.log("Produto adicionado ao bought com sucesso");
             break;
 
-        case "removeProdutosCarrinho":
-            Data.carrinho = [];
-            console.log("Produtos removidos do carrinho com sucesso");
+        case "removeProdutosbought":
+            Data.bought = [];
+            console.log("Produtos removidos do bought com sucesso");
             break;
 
         default:
